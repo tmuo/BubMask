@@ -1,6 +1,6 @@
 # Mask R-CNN for Bubble mask extraction
 
-This is a project of [Multiphase flow & Flow visualization Lab](https://mffv.snu.ac.kr/) for bubble detection and mask extraction. The purpose of the project is to automatically extract bubble mask of experimental images from various experimental conditions using deep learning model. More information can be found in the paper (to be updated :thinking:). 
+This is a project of [Multiphase flow & Flow visualization Lab](https://mffv.snu.ac.kr/) for bubble detection and mask extraction. The purpose of the project is to automatically extract bubble mask of experimental images from various experimental conditions using deep learning model. More information can be found in the paper ([Kim & Park, 2021](https://www.nature.com/articles/s41598-021-88334-0)). 
 
 The codes are based on [Matterport Mask R-CNN implementation](https://github.com/matterport/Mask_RCNN), using ResNet-101 as the backbone and applied transfer learning from pre-trained COCO weights. 
 
@@ -9,7 +9,7 @@ The output of the model is as follows:
 - color mask for input image/video 
 - logical mask for each bubble detected
 - bubble information list (centroid, area, axes) (to be updated :thinking:)
-- logical mask for one input image (for tracditional PIV or PTV application) (to be updated :thinking:)
+- logical mask for one input image (for conventional PIV or PTV application) (to be updated :thinking:)
 
 The repository includes:
 
