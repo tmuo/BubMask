@@ -7,15 +7,14 @@ The codes are based on [Matterport Mask R-CNN implementation](https://github.com
 The output of the model is as follows:
 
 - color mask for input image/video 
-- logical mask for each bubble detected
-- bubble information list (centroid, area, axes) (to be updated :thinking:)
-- logical mask for one input image (for conventional PIV or PTV application) (to be updated :thinking:)
+- PNG logical mask for each bubble detected
+- bubble property txt (centroid, area, axes, orientation)
 
 The repository includes:
 
 - Source code of Mask R-CNN built on FPN and ResNet101.
 - Source code to visualize the color mask of the input image/video.
-- Jupyter notebook to get the output.
+- source code to detect and save logical mask and bubble properties.
 
 ![Mask Extraction Example](assets/sample.gif)
 
@@ -33,7 +32,10 @@ This code was tested on the below environment.
 
 
 ## Preparing the input
-Prepare 3-channel jpg for testing (same for the video).
+Prepare images (JPG or PNG or TIF) under a series of folders ending in '_###' 
+
+- For example, folder_001, folder_002 ... 
+- Your `path/to/image` become `.../folder`
 
 
 ## How to test your own bubble image/video
@@ -49,6 +51,7 @@ Prepare 3-channel jpg for testing (same for the video).
 1. Download trained weights (mask_rcnn_bubble.h5) from the [link](https://drive.google.com/file/d/1BSi4djQtR0QKYEp-nFGsGi0e6UVEx5ug/view?usp=sharing).
 
 1. Run bubble detection script **in `bubble/` directory** to visualize color mask
+   (supports only 3-channel jpg image or video)
     ```bash
     bubble$ python3 bubble.py splash --weights=path/to/mask_rcnn_bubble.h5 --image=path/to/image
     ```
@@ -56,3 +59,10 @@ Prepare 3-channel jpg for testing (same for the video).
     ```bash
     bubble$ python3 bubble.py splash --weights=path/to/mask_rcnn_bubble.h5 --video=path/to/video
     ```
+    
+1. Run bubble detection script **in `bubble/` directory** to extract logical mask and bubble properties
+   (JPG or PNG or TIF images)
+    ```bash
+    bubble$ python3 bubble.py detect --weights=path/to/mask_rcnn_bubble.h5 --image=path/to/image --results=/path/to/results --folder_num_start=int --folder_num=number of folders --confidence=0.5 to 0.99
+    ```
+
