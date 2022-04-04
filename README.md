@@ -32,9 +32,9 @@ This code was tested on the below environment.
 
 
 ## Preparing the input
-Prepare images (JPG or PNG or TIF) under a series of folders ending in '_###' 
+Prepare images (JPG or PNG or TIF) under a series of folders ending in `_###` 
 
-- For example, folder_001, folder_002 ... 
+- For example, `folder_001, folder_002 ...` 
 - Your `path/to/image` become `.../folder`
 
 
@@ -63,6 +63,6 @@ Prepare images (JPG or PNG or TIF) under a series of folders ending in '_###'
 1. Run bubble detection script **in `bubble/` directory** to extract logical mask and bubble properties
    (JPG or PNG or TIF images)
     ```bash
-    bubble$ python3 bubble.py detect --weights=path/to/mask_rcnn_bubble.h5 --image=path/to/image --results=/path/to/results --folder_num_start=int --folder_num=number of folders --confidence=0.5 to 0.99
+    bubble$ python3 bubble.py detect --weights=path/to/mask_rcnn_bubble.h5 --image=path/to/image --results=/path/to/results --folder_num_start=0 --folder_num=1 --confidence=0.5 to 0.99
     ```
 
