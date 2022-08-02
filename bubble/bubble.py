@@ -27,6 +27,8 @@ Usage: import the module (see Jupyter notebooks for examples), or run from
 
     # Apply color splash to an image
     python3 bubble.py splash --weights=/path/to/weights/file.h5 --image=<URL or path to file> 
+
+    & C:/Users/tmuoj/.conda/envs/bubcnn/python.exe C:/Users/tmuoj/OneDrive/Tiedostot/python/aalto/BubMask-1/bubble/bubble.py splash --weights=C:/Users/tmuoj/OneDrive/Tiedostot/python/aalto/BubMask-1/mask_rcnn_bubble.h5 --image=C:/Users/tmuoj/OneDrive/Tiedostot/python/aalto/BubMask/sample_image/1.jpg
 """
 
 import os
@@ -43,12 +45,14 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import matplotlib.colors as mcolors
-from mrcnn import visualize
 import tensorflow as tf
 import datetime
+from pathlib import Path
+
+#os.environ["CUDA_VISIBLE_DEVICES"] = "-1" # Comment for GPU
 
 # Root directory of the project
-ROOT_DIR = os.path.abspath("../")
+ROOT_DIR = os.path.abspath("")
 
 # Import Mask RCNN
 sys.path.append(ROOT_DIR)  # To find local version of the library
@@ -57,14 +61,19 @@ from mrcnn import model as modellib, utils
 
 # Path to trained weights file
 COCO_WEIGHTS_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.h5")
+print(f'Trained weights: {COCO_WEIGHTS_PATH}')
 
 # Directory to save logs and model checkpoints, if not provided
 # through the command line argument --logs
-DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "bubble/logs")
+DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "logs/")
+Path(os.path.join(DEFAULT_LOGS_DIR)).mkdir(parents=True, exist_ok=True)
+print(f'Logs directory: {DEFAULT_LOGS_DIR}')
 
 # Results directory
 # Save submission files here
-RESULTS_DIR = os.path.join(ROOT_DIR, "results/bubble/")
+RESULTS_DIR = os.path.join(ROOT_DIR, "results/")
+Path(RESULTS_DIR).mkdir(parents=True, exist_ok=True)
+print(f'Results directory: {RESULTS_DIR}')
 
 ############################################################
 #  Configurations
@@ -513,14 +522,17 @@ if __name__ == '__main__':
     # Parse command line arguments
     parser = argparse.ArgumentParser(
         description='Train Mask R-CNN to detect bubbles.')
-    parser.add_argument("command",
+    parser.add_argument("--command",
                         metavar="<command>",
+                        default='splash',
                         help="'train' or 'splash' or 'detect'")
     parser.add_argument('--dataset', required=False,
                         metavar="/path/to/bubble/dataset/",
+                        default='C:/Users/tmuoj/OneDrive/Tiedostot/python/aalto/BubMask-1/dataset_RGB/',
                         help='Directory of the Bubble dataset')
-    parser.add_argument('--weights', required=True,
+    parser.add_argument('--weights', required=False,
                         metavar="/path/to/weights.h5",
+                        default='C:/Users/tmuoj/OneDrive/Tiedostot/python/aalto/BubMask-1/mask_rcnn_bubble.h5',
                         help="Path to weights .h5 file or 'coco'")
     parser.add_argument('--logs', required=False,
                         default=DEFAULT_LOGS_DIR,
@@ -532,6 +544,7 @@ if __name__ == '__main__':
                         help='Save submission files here (default=resuls/bubble)')
     parser.add_argument('--image', required=False,
                         metavar="path or URL to image",
+                        default='C:/Users/tmuoj/OneDrive/Tiedostot/python/aalto/BubMask-1/sample_image/Expansion_pipe.jpg',
                         help='Image to apply the color splash effect on')
     parser.add_argument('--video', required=False,
                         metavar="path or URL to video",
